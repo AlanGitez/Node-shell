@@ -1,14 +1,14 @@
-// function options(cmd){
-//     if(cmd == "pwd"){
-//         process.stdout.write(process.argv[1]);
-//     }else if(cmd == "date"){
-//         process.stdout.write(new Date().toString());
-//     }else {
-//         process.stdout.write("comando no reconocido.");
-//     }
-//     process.stdout.write("\nprompt \\> ");
+function options(cmd){
+    if(cmd == "pwd"){
+        process.stdout.write(process.argv[1]);
+    }else if(cmd == "date"){
+        process.stdout.write(new Date().toString());
+    }else {
+        process.stdout.write("comando no reconocido.");
+    }
+    process.stdout.write("\nprompt \\> ");
     
-// }
+}
 // function fn2(){
 
 // }
@@ -21,8 +21,12 @@ function pruebas(){
     // process.stdout.write("Chau! me voy.  \n");
     
 }
-function echo(str){
-    process.stdout.write(str);
+function echo(cmd=[]){
+    if(cmd.length == 0) throw "No hay argumentos que imprimir";
+    let str = cmd.join(" ")
+    let args = str.substring(str.indexOf(" ")).trim();
+    
+    process.stdout.write(args);
 }
 function pwd(){
     process.stdout.write(process.argv[1].toString());
