@@ -1,38 +1,43 @@
-function options(cmd){
-    if(cmd == "pwd"){
-        process.stdout.write(process.argv[1]);
-    }else if(cmd == "date"){
-        process.stdout.write(new Date().toString());
-    }else {
-        process.stdout.write("comando no reconocido.");
-    }
-    process.stdout.write("\nprompt \\> ");
-    
-}
-// function fn2(){
 
-// }
 function pruebas(){
-    // process.stdout.write("Hola!  \n");
-    
-    // // setTimeout(() => process.stdout.write("Como estas?  \n"), 0);
-    // process.stdout.write(["h","o","l","a"].reduce((ac, e) => ac+=e));
-    
-    // process.stdout.write("Chau! me voy.  \n");
     
 }
-function echo(cmd=[]){
+function argsToString(args){
+    let str = args.join(" ");
+    return str.substring(str.indexOf(" ")).trim();
+}
+function echo(cmd){
     if(cmd.length == 0) throw "No hay argumentos que imprimir";
-    let str = cmd.join(" ")
-    let args = str.substring(str.indexOf(" ")).trim();
     
-    process.stdout.write(args);
+    process.stdout.write(argsToString(cmd));
+    process.stdout.write("\nprompt > ")
+}
+function cat(cmd=[]){
+    cmd.splice(0, 1);
+    cmd.forEach(file => {
+        fs.readFile(file,"utf-8", function(err, data){
+            if(err) process.stdout.write(err); 
+            process.stdout.write("\nprompt > ")
+            process.stdout.write(data.toString());
+            
+        });
+        
+    });
+    
+}
+function head(cmd){
+
+}
+function tail(cmd){
+
 }
 function pwd(){
     process.stdout.write(process.argv[1].toString());
+    process.stdout.write("\nprompt > ")
 }
 function date(){
     process.stdout.write(new Date().toString());
+    process.stdout.write("\nprompt > ")
 }
 function ls(){
     fs.readdir("./", function(err, files){
@@ -44,4 +49,4 @@ function ls(){
     });
 }
 const fs = require("fs");
-module.exports = {pwd, date, ls, pruebas, echo};
+module.exports = {pwd, date, ls, pruebas, echo, cat, head, tail};
